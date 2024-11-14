@@ -18,3 +18,6 @@ Thumbs.db
 # Файлы конфигурации Go modules
 go.sum
 Gopkg.lock
+
+# Jetbrains IDE
+.idea
