@@ -1,5 +1,10 @@
 package main
 
+import (
+	"HStudy/internal/model"
+	"fmt"
+)
+
 func main() {
 
 	/*	set := model.NewSet[int]()
@@ -89,6 +94,27 @@ func main() {
 		current = current.Prev
 	}
 	// Вывод: 4 3 1*/
+
+	cache := model.NewLRUCache(3)
+
+	// Добавляем элементы в кэш
+	cache.Put(1, 1) // Кэш: {1=1}
+	cache.Put(2, 2) // Кэш: {2=2, 1=1}
+	cache.Put(3, 3) // Кэш: {3=3, 2=2, 1=1}
+
+	// Получаем элементы
+	fmt.Println(cache.Get(1)) // Выводит 1 (кэш: {1=1, 3=3, 2=2})
+	cache.Put(4, 4)           // Удаляется 2, кэш: {4=4, 1=1, 3=3}
+
+	// Получаем элемент
+	fmt.Println(cache.Get(2)) // Выводит -1 (кэш: {4=4, 1=1, 3=3})
+
+	// Добавляем новый элемент
+	cache.Put(5, 5) // Удаляется 3, кэш: {5=5, 4=4, 1=1}
+
+	// Получаем элементы
+	fmt.Println(cache.Get(1)) // Выводит 1 (кэш: {1=1, 5=5, 4=4})
+	fmt.Println(cache.Get(3)) // Выводит -1 (кэш: {1=1, 5=5, 4=4})
 }
 
 func IncrementPointer(a *int) {

@@ -1,0 +1,20 @@
+# Бинарные файлы
+/bin/
+/*.exe
+/*.out
+/*.test
+
+# Временные файлы от IDE
+.idea/
+/.vscode/
+
+# Файлы операционных систем
+.DS_Store
+Thumbs.db
+
+# Папка с зависимостями
+/vendor/
+
+# Файлы конфигурации Go modules
+go.sum
+Gopkg.lock

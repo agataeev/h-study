@@ -1,59 +1,30 @@
 package model
 
-// Определяем тип Set для int
-type IntSet map[int]struct{}
-
-// Создаем новый пустой set
-func NewIntSet() IntSet {
-	return make(IntSet)
+type Set struct {
+	elements map[int]struct{}
 }
 
-// Добавляем элемент в set
-func (s IntSet) Add(value int) {
-	s[value] = struct{}{}
+func NewSet() *Set {
+	return &Set{elements: make(map[int]struct{})}
 }
 
-// Удаляем элемент из set
-func (s IntSet) Remove(value int) {
-	delete(s, value)
+func (s *Set) Add(value int) {
+	s.elements[value] = struct{}{}
 }
 
-// Проверяем, есть ли элемент в set
-func (s IntSet) Contains(value int) bool {
-	_, exists := s[value]
+func (s *Set) Remove(value int) {
+	delete(s.elements, value)
+}
+
+func (s *Set) Contains(value int) bool {
+	_, exists := s.elements[value]
 	return exists
 }
 
-// Возвращаем объединение двух множеств
-func (s IntSet) Union(other IntSet) IntSet {
-	result := NewIntSet()
-	for value := range s {
-		result.Add(value)
+func (s *Set) Elements() []int {
+	keys := make([]int, 0, len(s.elements))
+	for key := range s.elements {
+		keys = append(keys, key)
 	}
-	for value := range other {
-		result.Add(value)
-	}
-	return result
-}
-
-// Возвращаем пересечение двух множеств
-func (s IntSet) Intersection(other IntSet) IntSet {
-	result := NewIntSet()
-	for value := range s {
-		if other.Contains(value) {
-			result.Add(value)
-		}
-	}
-	return result
-}
-
-// Возвращаем разность двух множеств
-func (s IntSet) Difference(other IntSet) IntSet {
-	result := NewIntSet()
-	for value := range s {
-		if !other.Contains(value) {
-			result.Add(value)
-		}
-	}
-	return result
+	return keys
 }
